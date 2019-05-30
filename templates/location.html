@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html>
 <title> attend </title>
+<head> 
+  <link rel="stylesheet" href="/css/style.css">
+</head>
 <body>
 <p>Click the button to get your coordinates.</p>
 <form method="post"> 
   Uniqname:
-  <input type="text" name="uniqname"><br>
+  <input type="text" name="uniqname">
+  <input type="button" onclick="getLocation()" value="Attend" class="button">
 </form>
 <button onclick="getLocation()">Try It</button>
 

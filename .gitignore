@@ -58,3 +58,4 @@ buck-out/
 *.vscode
 
 *.pyc
+venv/

@@ -37,6 +37,14 @@ class Classes(db.Model):
     def __repr__(self):
         return "Class {} {}".format(self.className, self.teacherId)
 
+class SingleClass(db.model):
+    id = db.Column(db.Integer, primary_key=True)
+    studentName = db.Column(db.String(80), unique=True)
+    date = db.Column(db.DateTime, default=)
+    className = db.Column(db.String(30))
+
+    def __init__(self, studentName, )
+
 
 
 class Classrooms(db.Model):

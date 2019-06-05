@@ -2,16 +2,19 @@
 <!DOCTYPE HTML>
 
 <html>
-    <link rel="shortcut icon" type="image/png" href="/images/favicon.ico"/>
-    <head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-        <style>
-            @import url('https://fonts.googleapis.com/css?family=Overpass+Mono|Lekton');
-            /*@import url('https://fonts.googleapis.com/css?family=EB+Garamond');*/
-            
-            a:hover {
+    <head>
+        <meta name="google-signin-scope" content="profile email">
+        <meta name="google-signin-client_id" content="332300631825-gapksda1frqks5u0vta23n9c3r7ubcvi.apps.googleusercontent.com">
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+            <style>
+                @import url('https://fonts.googleapis.com/css?family=Overpass+Mono|Lekton');
+                /*@import url('https://fonts.googleapis.com/css?family=EB+Garamond');*/
+                 a:hover {
                 background-color: lightgreen;
-            }
-        </style>
+                 }
+            </style>
+        
         <title>attend</title>
         <img src="/images/attLogoNB.png">
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -19,12 +22,14 @@
         <link rel="stylesheet" href="/css/main.css" />
         <!--        [if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
         <!--        [if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-        </head>
+    </head>
     
     
-    
+    <link rel="shortcut icon" href="images/fav.ico">
     <body>
-        
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        <img src="images/attLogoNB.png" height="75" width="75">
+        <!--        <img src="images/attLogoInvNB.png" height="75" width="75">-->
         <!---->
         <!--        <!-- Signup Form -->
         <!--        <form id="signup-form" method="post" action="#">-->
@@ -109,9 +114,28 @@
             function deg2rad(deg) {
                 return deg * (Math.PI/180)
             }
+                function onSignIn(googleUser) {
+                // Useful data for your client-side scripts:
+                var profile = googleUser.getBasicProfile();
+                console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+                console.log('Full Name: ' + profile.getName());
+                console.log('Given Name: ' + profile.getGivenName());
+                console.log('Family Name: ' + profile.getFamilyName());
+                console.log("Image URL: " + profile.getImageUrl());
+                console.log("Email: " + profile.getEmail());
+
+                // The ID token you need to pass to your backend:
+                var id_token = googleUser.getAuthResponse().id_token;
+                console.log("ID Token: " + id_token);
+            }
+            function signOut() {
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                console.log('User signed out.');
+                });
+            }
             
-            
-                </script>
+            </script>
             
             <!-- Footer -->
             <footer id="footer">

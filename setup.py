@@ -9,4 +9,7 @@ app = Flask(__name__, template_folder=template_dir)
 def hello():
     return render_template('location.html')
 
+@app.route("/teacher")
+def overview():
+    return render_template('teacher.html')
 

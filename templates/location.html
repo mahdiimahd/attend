@@ -56,6 +56,7 @@
             <p id="fingerprint"></p>
             <script src="/js/main.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/fingerprintjs2/2.1.0/fingerprint2.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
             <script>
                 var x = document.getElementById("demo");
                 var y = document.getElementById("distance");
@@ -115,19 +116,31 @@
             function deg2rad(deg) {
                 return deg * (Math.PI/180)
             }
-            function onSignIn(googleUser) {
+              function onSignIn(googleUser) {
                 // Useful data for your client-side scripts:
                 var profile = googleUser.getBasicProfile();
-                console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+                /*console.log("ID: " + profile.getId()); // Don't send this directly to your server!
                 console.log('Full Name: ' + profile.getName());
                 console.log('Given Name: ' + profile.getGivenName());
                 console.log('Family Name: ' + profile.getFamilyName());
                 console.log("Image URL: " + profile.getImageUrl());
-                console.log("Email: " + profile.getEmail());
+                console.log("Email: " + profile.getEmail());*/
+
+                const Url = window.location.pathname
+                console.log(Url)
+                var data = {
+                  studentName : profile.getName(),
+                  uniqname: profile.getEmail().split("@")[0],
+                  className: window.location.pathname
+                }
+
+                $.post(Url, data, function(data, status){
+                  console.log('${data} and status is {status}')
+                });
 
                 // The ID token you need to pass to your backend:
-                var id_token = googleUser.getAuthResponse().id_token;
-                console.log("ID Token: " + id_token);
+                //var id_token = googleUser.getAuthResponse().id_token;
+                //console.log("ID Token: " + id_token);
             }
             function signOut() {
                 var auth2 = gapi.auth2.getAuthInstance();

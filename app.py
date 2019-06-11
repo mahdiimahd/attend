@@ -197,8 +197,10 @@ def getClassInfo(className):
         print(class_info,classroom_info)
 
         return jsonify(
-            classInfo=class_info,
-            classroomInfo=classroom_info
+            teacherName=class_info.teacherName,
+            roomInfo=classroom_info.classroomName,
+            lat=classroom_info.lat,
+            lng=classroom_info.lng,
         )
 
 
@@ -255,7 +257,7 @@ def index(className):
         return "{ 'Status' : 'OK'}"
     else:
         print("Get request received")
-        return render_template('location.html', value=className, )
+        return render_template('location.html', value=className )
 
 @app.route("/attendance/<classname>", methods = ["GET"])
 def getAttendance(classname):

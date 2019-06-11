@@ -70,7 +70,7 @@ class Classes(db.Model):
 class Singleclass(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     studentName = db.Column(db.String(80)) 
-    date = db.Column(db.DateTime, default=datetime.now(timezone('US/Eastern')).date())
+    date = db.Column(db.Date, default=datetime.now(timezone('US/Eastern')).date())
     className = db.Column(db.String(30))
     uniqname = db.Column(db.String(80))
 

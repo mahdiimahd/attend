@@ -70,7 +70,7 @@ class Classes(db.Model):
 class Singleclass(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     studentName = db.Column(db.String(80)) 
-    date = db.Column(db.Date, default=datetime.now(timezone('US/Eastern')).date())
+    date = db.Column(db.Date)
     className = db.Column(db.String(30))
     uniqname = db.Column(db.String(80))
 
@@ -79,7 +79,7 @@ class Singleclass(db.Model):
         self.studentName = studentName
         self.className = className
         self.uniqname = uniqname
-        self.date = datetime.now()
+        self.date = datetime.now(timezone('US/Eastern')).date()
 
     
     def __repr__(self):
@@ -265,6 +265,7 @@ def index(className):
 @app.route("/attendance/<classname>", methods = ["GET"])
 def getAttendance(classname):
     if request.method == 'GET':
+        print()
         list_students = Singleclass.query.filter_by(className=classname).with_entities(Singleclass.uniqname).distinct().all()
         #num_students = Singleclass.query.with_entities(Singleclass.uniqname).distinct().all()
         print(list_students)

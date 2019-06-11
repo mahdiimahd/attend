@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify
 import os
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from pytz import timezone
 
 
 template_dir = os.path.abspath('./templates')
@@ -208,9 +209,10 @@ def index(className):
     if request.method == 'POST':
         print("post request received")
         # print(request.data.keys())
+
         classInfo = Classes.query.filter_by(className=className).first()
         print(classInfo)
-        date = datetime.now()
+        date = datetime.now(timezone('EST'))
         day = date.weekday()
         is_day_valid = ""
         is_time_valid = ""

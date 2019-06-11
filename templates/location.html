@@ -3,7 +3,8 @@
 
 <html>
     <head>
-        <img src="images/attLogoNB.png" height="75" width="75">
+        
+        
         <meta name="google-signin-scope" content="profile email">
         <meta name="google-signin-client_id" content="332300631825-gapksda1frqks5u0vta23n9c3r7ubcvi.apps.googleusercontent.com">
         <script src="https://apis.google.com/js/platform.js" async defer></script>
@@ -14,11 +15,49 @@
                  a:hover {
                 background-color: lightgreen;
                  }
+                 img {
+                position: absolute;
+                left: 38%;
+                top: 1%;
+                /* width: 100%; */
+                text-align: center;
+                /* font-size: 18px; */
+            }
+                 h1 {
+                position: absolute;
+                left: 0%;
+                top: 1%;
+                /* width: 100%; */
+                text-align: center;
+                /* font-size: 18px; */
+            }
+                #drpdn {   
+                    width: 40%;
+                }
+
+                #plc {
+                    display:inline-block;
+                }
+
+                input[type="checkbox"] {
+                    -webkit-appearance:checkbox;
+                }
+
+                #el1 {display:inline-block; width:30%;} 
+                #el2 {display:inline-block; width:30%;} 
+
+                div#semester {order: 1;}
+                div#select1 {order: 2;}
+
             </style>
-        
+
+        <img src="images/attLogoNB.png" height="75" width="75">
+        <h1> Attend </h1>
+
         <title>attend</title>
         
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes" />
+
         <!--        [if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script> <![endif]-->
         <link rel="stylesheet" href="/css/main.css" />
         <!--        [if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
@@ -30,17 +69,10 @@
     <body>
         <div class="g-signin2" data-onsuccess="onSignIn"></div>
         
-        <!--        <img src="images/attLogoInvNB.png" height="75" width="75">-->
-        <!---->
-        <!--        <!-- Signup Form -->
-        <!--        <form id="signup-form" method="post" action="#">-->
-        <!--            <input type="email" name="email" id="email" placeholder="Email Address" />-->
-        <!--            <input type="submit" value="Sign Up" />-->
-        <!--        </form>-->
-        
         
         <script src="/js/main.js">
             </script>
+        <script src="picker.time.js"></script>
         <title> attend </title>
         <body>
 <!--            <p>Click the "Try It" button to get your coordinates.</p>-->
@@ -51,7 +83,7 @@
 <!--                    </form>-->
 <!--            <button id="button" type="text" onclick="getLocation()">Try It</button>-->
 
-            <p id="demo"></p>
+            <!-- <p id="demo"></p> -->
             <p id="distance"></p>
             <p id="fingerprint"></p>
             <script src="/js/main.js"></script>
@@ -61,7 +93,7 @@
                 var x = document.getElementById("demo");
                 var y = document.getElementById("distance");
                 var z = document.getElementById("fingerprint")
-                
+    
                 // Hardcoded lat/long of my house for testing
                 var home_lat = 42.2695707
                 var home_long = -83.7347724
@@ -71,7 +103,7 @@
                            Fingerprint2.get(function (components) {
                                             var values = components.map(function (component) { return component.value })
                                             var murmur = Fingerprint2.x64hash128(values.join(''), 31)
-                                            z.innerHTML = "One-time fingerprint: " + murmur // an array of components: {key: ..., value: ...}
+                                            // z.innerHTML = "One-time fingerprint: " + murmur // an array of components: {key: ..., value: ...}
                                             })
                            }, 500)
                            
@@ -125,9 +157,13 @@
                 console.log('Family Name: ' + profile.getFamilyName());
                 console.log("Image URL: " + profile.getImageUrl());
                 console.log("Email: " + profile.getEmail());*/
+                if (profile.getFamilyName() == "Bosier") {
+                    createAclass();
+                }
+                
 
-                const Url = window.location.pathname
-                console.log(Url)
+                const Url = window.location.pathname;
+                console.log(Url);
                 var data = {
                   studentName : profile.getName(),
                   uniqname: profile.getEmail().split("@")[0],
@@ -142,6 +178,111 @@
                 //var id_token = googleUser.getAuthResponse().id_token;
                 //console.log("ID Token: " + id_token);
             }
+            
+            createAclass();
+            
+
+            
+            function createAclass() {
+
+                
+
+                var spaces = "&nbsp;".repeat(15);    
+                var mspace = spaces.repeat(2);       
+
+                y.innerHTML = "<h2>Welcome Professor [],";
+
+
+                y.innerHTML += "<h3>Added courses:</h3>";
+
+
+                y.innerHTML += "<h3>Add a class below</h3>";
+
+
+                y.innerHTML +=  "<h4>Course:</h4>" + 
+                                "<form id=\"signup-form\" action=\"#\" method=\"post\">" +
+                                "<select id=\"drpdn\">" + 
+                                "<option value=\"eecs441\">eecs441</option>" + 
+                                "<option value=\"eecs489\">eecs489</option>" +
+                                "<option value=\"eecs482\">eecs482</option>" + 
+                                "<option value=\"eecs470\">eecs470</option>" +
+                                "</select>" +  //"<input id=\"plc\" type=\"submit\" name=\"submit\" value=\"submit\" />" +
+                                "</form>";
+                
+                var hour = "1-hr time slot from: ";
+
+                 var times = "<form id=\"times\" action=\"#\" method=\"post\" >" + // style=\"display:none\">" +
+                                "<select id=\"drpdn\" style=\"display:none\">" +
+                                "<option value=\"9\">9:00AM<br>" +
+                                "<option name=\"10a\" value=\"10\">10:00AM</option>" +
+                                "<option name=\"11a\" value=\"11\">11:00AM</option>" +
+                                "<option name=\"12a\" value=\"12\">12:00PM</option>" +
+                                "<option name=\"1p\" value=\"1\">1:00PM</option>" +
+                                "<option name=\"2p\" value=\"2\">2:00PM</option>" +
+                                "<option name=\"3p\" value=\"3\">3:00PM</option>" +
+                                "<option name=\"4p\" value=\"4\">4:00PM</option>" +
+                                "<option name=\"5p\" value=\"5\">5:00PM</option>" +
+                                "<option name=\"6p\" value=\"6\">6:00PM</option>" +
+                                "<option name=\"7p\" value=\"7\">7:00PM</option>" + 
+                                "</select>" +
+                            "</form>";
+
+                
+                var checks  =   "<form action=\"/action_page.php\">" + 
+                                
+                                "<input type=\"checkbox\" id=\"Mon\" value=\"mon\" onclick=\"timeF(id,'demo')\">" + "Monday" +  "<strong id=\"demo\"></strong><br>" +
+                                "<input type=\"checkbox\" id=\"Tue\" value=\"tue\" onclick=\"timeF(id,'demo1')\">Tuesday" +   "<strong id=\"demo1\"></strong><br>" +
+                                "<input type=\"checkbox\" id=\"Wed\" value=\"wed\" onclick=\"timeF(id,'demo2')\">Wednesday" +   "<strong id=\"demo2\"></strong><br>" +
+                                "<input type=\"checkbox\" id=\"Thu\" value=\"thur\" onclick=\"timeF(id,'demo3')\">Thursday" +   "<strong id=\"demo3\"></strong><br>" +
+                                "<input type=\"checkbox\" id=\"Fri\" value=\"fri\" onclick=\"timeF(id,'demo4')\">Friday" +  "<strong id=\"demo4\"></strong><br>";
+             
+
+                y.innerHTML +=  "<form action=\"#\">" +        
+                                "Please select days: </br>" + 
+                                checks;
+                                // "<option value=\"mon\">Mon</option>" + 
+                                // "<option value=\"tue\">Tue</option>" +
+                                // "<option value=\"wed\">Wed</option>" + 
+                                // "<option value=\"thu\">Thur</option>" +
+                                // "<option value=\"fri\">Fri</option>" +
+                                // "</select>" + 
+                                // "</form>";
+                
+
+                y.innerHTML += "</br><input type=\"submit\" value=\"Submit\">";
+                 
+            }
+
+            function timeF(id,demo) {
+                    
+                    // alert(document.getElementById("drpdn").style.display);
+                    
+
+                    if (document.getElementById(id).checked == true){
+                         //alert(document.getElementById("drpdn").style.display = block);// = block;
+                         
+                        document.getElementById(demo).innerHTML = "<form id=\"times\" action=\"#\" method=\"post\" >" + // style=\"display:none\">" +
+                                "<select id=\"drpdn\">" +
+                                "<option value=\"9\">9:00AM<br>" +
+                                "<option name=\"10a\" value=\"10\">10:00AM</option>" +
+                                "<option name=\"11a\" value=\"11\">11:00AM</option>" +
+                                "<option name=\"12a\" value=\"12\">12:00PM</option>" +
+                                "<option name=\"1p\" value=\"1\">1:00PM</option>" +
+                                "<option name=\"2p\" value=\"2\">2:00PM</option>" +
+                                "<option name=\"3p\" value=\"3\">3:00PM</option>" +
+                                "<option name=\"4p\" value=\"4\">4:00PM</option>" +
+                                "<option name=\"5p\" value=\"5\">5:00PM</option>" +
+                                "<option name=\"6p\" value=\"6\">6:00PM</option>" +
+                                "<option name=\"7p\" value=\"7\">7:00PM</option>" + 
+                                "</select>" +
+                            "</form></br>";
+                    }
+                    else{
+                        document.getElementById(demo).innerHTML = "";
+                        // alert("hello");
+                    }  
+            }
+
             function signOut() {
                 var auth2 = gapi.auth2.getAuthInstance();
                 auth2.signOut().then(function () {
@@ -163,3 +304,4 @@
             </footer>
         </body>
 </html>
+

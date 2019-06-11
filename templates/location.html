@@ -18,7 +18,7 @@
                  img {
                 position: absolute;
                 left: 38%;
-                top: 1%;
+                top: 2%;
                 /* width: 100%; */
                 text-align: center;
                 /* font-size: 18px; */
@@ -26,7 +26,7 @@
                  h1 {
                 position: absolute;
                 left: 0%;
-                top: 1%;
+                top: 2%;
                 /* width: 100%; */
                 text-align: center;
                 /* font-size: 18px; */
@@ -195,10 +195,27 @@
 
                 y.innerHTML += "<h3>Added courses:</h3>";
 
+                y.innerHTML += "<table style='display:block'>" +
+                                "<tr>" + 
+                                    "<th>Course " + mspace + "</th>" +
+                                    "<th>Number of Students" + mspace + "</th>" +
+                                    "<th>Average Attendance " + mspace + "</th>" +
+                                "</tr>" +
+                                "<tr>" + 
+                                    "<td>EECS 438 </td>" +
+                                    "<td>45 </td>" + 
+                                    "<td>40</td>" + 
+                                "</tr>" +
+                                "<tr>" + 
+                                    "<td>EECS 485 </td>" +
+                                    "<td>35</td>" + 
+                                    "<td>30</td>" + 
+                                "</tr>" + 
+                                "</table><br>";
 
-                y.innerHTML += "<h3>Add a class below</h3>";
-
-
+                
+                y.innerHTML += "<h4>Add a class below</h4>";
+    
                 y.innerHTML +=  "<h4>Course:</h4>" + 
                                 "<form id=\"signup-form\" action=\"#\" method=\"post\">" +
                                 "<select id=\"drpdn\">" + 
@@ -240,13 +257,7 @@
                 y.innerHTML +=  "<form action=\"#\">" +        
                                 "Please select days: </br>" + 
                                 checks;
-                                // "<option value=\"mon\">Mon</option>" + 
-                                // "<option value=\"tue\">Tue</option>" +
-                                // "<option value=\"wed\">Wed</option>" + 
-                                // "<option value=\"thu\">Thur</option>" +
-                                // "<option value=\"fri\">Fri</option>" +
-                                // "</select>" + 
-                                // "</form>";
+                
                 
 
                 y.innerHTML += "</br><input type=\"submit\" value=\"Submit\">";

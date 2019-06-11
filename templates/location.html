@@ -126,7 +126,7 @@
                     latClass=data.lat;
                     lngClass=data.lng;
                     var distance = getDistanceFromLatLonInKm(position.coords.latitude, position.coords.longitude,latClass, lngClass)
-                    console.log(distance)
+                    console.log(distance, position.coords.latitude, position.coords.longitude, latClass, lngClass)
                     if(distance > 120){
                         alert("You are too far away from the classroom")
                     }else{
@@ -139,7 +139,8 @@
                         }
 
                         $.post(Url, data, function(data, status){
-                        console.log(data)
+                            console.log(data)
+                            alert(data.message)
                         });
                     }
                 })

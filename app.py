@@ -194,7 +194,6 @@ def getClassInfo(className):
     if request.method == 'GET':
         class_info = Classes.query.filter_by(className=className).first()
         classroom_info = Classrooms.query.filter_by(classroomName=class_info.classroomName).first()
-        print(class_info,classroom_info)
 
         return jsonify(
             teacherName=class_info.teacherName,
@@ -251,10 +250,12 @@ def index(className):
                     message="You have already checked in today."
                 )
         entry = Singleclass(request.form['studentName'], className, request.form['uniqname'])
-        #print(entry)
+        print(entry)
         db.session.add(entry)
         db.session.commit()
-        return "{ 'Status' : 'OK'}"
+        return jsonify(
+            message="You are now checked in!"
+        )
     else:
         print("Get request received")
         return render_template('location.html', value=className )

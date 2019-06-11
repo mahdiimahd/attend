@@ -70,7 +70,7 @@ class Classes(db.Model):
 class Singleclass(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     studentName = db.Column(db.String(80)) 
-    date = db.Column(db.DateTime, default=datetime.now())
+    date = db.Column(db.DateTime, default=datetime.now(timezone('US/Eastern').date()))
     className = db.Column(db.String(30))
     uniqname = db.Column(db.String(80))
 
@@ -265,11 +265,11 @@ def index(className):
 @app.route("/attendance/<classname>", methods = ["GET"])
 def getAttendance(classname):
     if request.method == 'GET':
-        list_students = Singleclass.query.filter_by(className=classname).all()
-        num_students = Singleclass.query.with_entities(Singleclass.uniqname).distinct().all()
-        print(num_students)
+        list_students = Singleclass.query.filter_by(className=classname).with_entities(Singleclass.uniqname).distinct().all()
+        #num_students = Singleclass.query.with_entities(Singleclass.uniqname).distinct().all()
+        print(list_students)
         return jsonify(
-            count=len(num_students),
+            count=len(list_students),
         )
 
 @app.route("/classroom", methods=["GET","POST"])

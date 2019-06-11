@@ -212,7 +212,7 @@ def index(className):
 
         classInfo = Classes.query.filter_by(className=className).first()
         print(classInfo)
-        date = datetime.now(timezone('EST'))
+        date = datetime.now(timezone('US/Eastern'))
         day = date.weekday()
         is_day_valid = ""
         is_time_valid = ""

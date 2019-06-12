@@ -67,7 +67,7 @@
         <script src="picker.time.js"></script>
         <title> attend </title>
         <!-- <body> -->
-            <div class="g-signin2" style="position: relative;top: 40%; right: 30%;" data-onsuccess="onSignIn"></div> <!-- g-signin2 -->
+            <div class="g-signin2" style="position: absolute;top: 22.5%; right: 12.5%;" data-onsuccess="onSignIn"></div> <!-- g-signin2 -->
 
             <p id="distance"></p>
             <p id="fingerprint"></p>
@@ -174,9 +174,9 @@
                 y.innerHTML = "<h2>Welcome Professor []</h2>";
 
 
-                y.innerHTML += "<h3>Added courses:</h3>";
+                y.innerHTML += "<h3>Course attendance:</h3>";
 
-                y.innerHTML += mspace + mspace + "<strong>Attendance Data</strong>" + 
+                y.innerHTML += mspace + "(# students)" + spaces +  "(# students)" +
                                 "<table style='display:block; font-size: 0.85em;'>" +
                                 "<tr>" + 
                                     "<th>Course" + mspace + "</th>" +
@@ -228,7 +228,7 @@
                 
                 
 
-                y.innerHTML += "</br><input type=\"submit\" style='position:absolute;left:50%;' value=\"Submit\">";
+                y.innerHTML += "</br><input type=\"submit\" style='position:absolute;left:35%;width:30%' value=\"Submit\">";
                 y.innerHTML += "</p></header>"
             }
 

@@ -292,6 +292,14 @@ def addClassroom():
             classrooms
         )
 
+@app.route("/toCSV/<className>", methods=["GET"])
+def toCSV(className):
+    if request.method == 'GET':
+        dates = Singleclass.query.filter_by(className=className).query.with_entities(Singleclass.date).order_by(Singleclass.date.asc()).distinct().all()
+        print(dates)
+        return jsonify(
+            message="File sent"
+        )
 # def testing():
 #     if request.method == "POST":
 #         print("post request worked")

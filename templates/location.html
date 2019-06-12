@@ -15,24 +15,17 @@
                  a:hover {
                 background-color: lightgreen;
                  }
-                 img {
-                position: absolute;
-                left: 38%;
-                top: 2%;
-                /* width: 100%; */
-                text-align: center;
-                /* font-size: 18px; */
-            }
+                 
                  h1 {
                 position: absolute;
-                left: 0%;
+                left: 50%;
                 top: 2%;
                 /* width: 100%; */
                 text-align: center;
                 /* font-size: 18px; */
             }
                 #drpdn {   
-                    width: 40%;
+                    width: 50%;
                 }
 
                 #plc {
@@ -42,19 +35,17 @@
                 input[type="checkbox"] {
                     -webkit-appearance:checkbox;
                     /* Double-sized Checkboxes */
-                    -ms-transform: scale(2); /* IE */
-                    -moz-transform: scale(2); /* FF */
-                    -webkit-transform: scale(2); /* Safari and Chrome */
-                    -o-transform: scale(2); /* Opera */
-                    transform: scale(2);
+                    -ms-transform: scale(1.5); /* IE */
+                    -moz-transform: scale(1.5); /* FF */
+                    -webkit-transform: scale(1.5); /* Safari and Chrome */
+                    -o-transform: scale(1.5); /* Opera */
+                    transform: scale(1.5);
                     padding: 10px;
                 }
 
                 #el1 {display:inline-block; width:30%;} 
                 #el2 {display:inline-block; width:30%;} 
 
-                div#semester {order: 1;}
-                div#select1 {order: 2;}
 
             </style>
 
@@ -62,8 +53,7 @@
 
         <title>attend</title>
         
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes" />
-
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
         <!--        [if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script> <![endif]-->
         <link rel="stylesheet" href="/css/main.css" />
         <!--        [if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
@@ -72,22 +62,19 @@
     
     
     <link rel="shortcut icon" href="/images/fav.ico">
-    <body>
-        
-        <script src="/js/main.js">
-        </script>
+    <body class="is-preload">
+        <script src="/js/main.js"></script>
         <script src="picker.time.js"></script>
         <title> attend </title>
-        <body>
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        <!-- <body> -->
+            <div class="g-signin2" style="position: relative;top: 40%; right: 30%;" data-onsuccess="onSignIn"></div> <!-- g-signin2 -->
 
-            <!-- <p id="demo"></p> -->
             <p id="distance"></p>
             <p id="fingerprint"></p>
             <script src="/js/main.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/fingerprintjs2/2.1.0/fingerprint2.min.js"></script>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-            
+
             <script>
                 
                 var x = document.getElementById("demo");
@@ -180,29 +167,34 @@
             function createAclass() {
 
                 
-                var spaces = "&nbsp;".repeat(15);    
+                var spaces = "&nbsp;".repeat(15);
+                var space2 = "&nbsp;".repeat(3);    
                 var mspace = spaces.repeat(2);       
-
-                y.innerHTML = "<h2>Welcome Professor [],";
+                
+                y.innerHTML = "<h2>Welcome Professor []</h2>";
 
 
                 y.innerHTML += "<h3>Added courses:</h3>";
 
-                y.innerHTML += "<table style='display:block'>" +
+                y.innerHTML += mspace + mspace + "<strong>Attendance Data</strong>" + 
+                                "<table style='display:block; font-size: 0.85em;'>" +
                                 "<tr>" + 
                                     "<th>Course" + mspace + "</th>" +
-                                    "<th>Total Students" + mspace + "</th>" +
-                                    "<th>Avg Attendance" + mspace + "</th>" +
+                                    "<th>Total" + mspace + "</th>" +
+                                    "<th>Avg" + mspace + "</th>" +
+                                    "<th>Bldg" + mspace + "</th>" +
                                 "</tr>" +
                                 "<tr>" + 
                                     "<td>EECS 438 </td>" +
                                     "<td>45 </td>" + 
                                     "<td>40</td>" + 
+                                    "<td>EECS</td>" +
                                 "</tr>" +
                                 "<tr>" + 
                                     "<td>EECS 485 </td>" +
                                     "<td>35</td>" + 
-                                    "<td>30</td>" + 
+                                    "<td>30</td>" +
+                                    "<td>DOW</td>" +  
                                 "</tr>" + 
                                 "</table><br>";
 
@@ -211,32 +203,33 @@
     
                 y.innerHTML +=  "<h4>Course:</h4>" + 
                                 "<form id=\"signup-form\" action=\"#\" method=\"post\">" +
-                                "<select id=\"drpdn\">" + 
+                                "<select>" + 
                                 "<option value=\"eecs441\">eecs441</option>" + 
                                 "<option value=\"eecs489\">eecs489</option>" +
                                 "<option value=\"eecs482\">eecs482</option>" + 
                                 "<option value=\"eecs470\">eecs470</option>" +
                                 "</select>" +  //"<input id=\"plc\" type=\"submit\" name=\"submit\" value=\"submit\" />" +
-                                "</form>";
+                                "</form><br><br><br>";
                 
                 var hour = "1-hr time slot from: ";
 
                 
-                var checks  =   "<form action=\"/action_page.php\">" + 
-                                "<input type=\"checkbox\" id=\"Mon\" value=\"mon\" onclick=\"timeF(id,'demo')\">Monday" +  "<strong id=\"demo\"></strong><br>" +
-                                "<input type=\"checkbox\" id=\"Tue\" value=\"tue\" onclick=\"timeF(id,'demo1')\">Tuesday" +   "<strong id=\"demo1\"></strong><br>" +
-                                "<input type=\"checkbox\" id=\"Wed\" value=\"wed\" onclick=\"timeF(id,'demo2')\">Wednesday" +   "<strong id=\"demo2\"></strong><br>" +
-                                "<input type=\"checkbox\" id=\"Thu\" value=\"thur\" onclick=\"timeF(id,'demo3')\">Thursday" +   "<strong id=\"demo3\"></strong><br>" +
-                                "<input type=\"checkbox\" id=\"Fri\" value=\"fri\" onclick=\"timeF(id,'demo4')\">Friday" +  "<strong id=\"demo4\"></strong><br>";
+                var checks  =   "<form action='/action_page.php'>" + 
+                                "<input type=\"checkbox\" id=\"Mon\" value=\"mon\" onclick=\"timeF(id,'demo')\">" + space2 + "Monday<strong id=\"demo\"></strong><br>" +
+                                "<input type=\"checkbox\" id=\"Tue\" value=\"tue\" onclick=\"timeF(id,'demo1')\">" + space2 + "Tuesday<strong id=\"demo1\"></strong><br>" +
+                                "<input type=\"checkbox\" id=\"Wed\" value=\"wed\" onclick=\"timeF(id,'demo2')\">" + space2 + "Wednesday<strong id=\"demo2\"></strong><br>" +
+                                "<input type=\"checkbox\" id=\"Thu\" value=\"thur\" onclick=\"timeF(id,'demo3')\">" + space2 + "Thursday<strong id=\"demo3\"></strong><br>" +
+                                "<input type=\"checkbox\" id=\"Fri\" value=\"fri\" onclick=\"timeF(id,'demo4')\">" + space2 +  "Friday<strong id=\"demo4\"></strong><br>"+
+                                "</form>"
              
 
-                y.innerHTML +=  "<form action=\"#\">" +        
-                                "Please select days and starting time for 1 hour window: </br>" + 
+                y.innerHTML +=  "<strong>Please select days and starting time for 1 hour window:</strong></br>" + 
                                 checks;
                 
                 
 
-                y.innerHTML += "</br><input type=\"submit\" value=\"Submit\">";
+                y.innerHTML += "</br><input type=\"submit\" style='position:absolute;left:50%;' value=\"Submit\">";
+                y.innerHTML += "</p></header>"
             }
 
             function timeF(id,demo) {
@@ -277,7 +270,6 @@
             }
             
             </script>
-            
 
         </body>
 </html>

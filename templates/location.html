@@ -41,6 +41,13 @@
 
                 input[type="checkbox"] {
                     -webkit-appearance:checkbox;
+                    /* Double-sized Checkboxes */
+                    -ms-transform: scale(2); /* IE */
+                    -moz-transform: scale(2); /* FF */
+                    -webkit-transform: scale(2); /* Safari and Chrome */
+                    -o-transform: scale(2); /* Opera */
+                    transform: scale(2);
+                    padding: 10px;
                 }
 
                 #el1 {display:inline-block; width:30%;} 
@@ -51,7 +58,6 @@
 
             </style>
 
-        <img src="images/attLogoNB.png" height="75" width="75">
         <h1> Attend </h1>
 
         <title>attend</title>
@@ -67,21 +73,13 @@
     
     <link rel="shortcut icon" href="/images/fav.ico">
     <body>
-        <div class="g-signin2" data-onsuccess="onSignIn"></div>
-        
         
         <script src="/js/main.js">
-            </script>
+        </script>
         <script src="picker.time.js"></script>
         <title> attend </title>
         <body>
-<!--            <p>Click the "Try It" button to get your coordinates.</p>-->
-<!--            Uniqname:-->
-<!--            <form id="signup-form" method="post">-->
-<!--                <input type="text" name="uniqname">-->
-<!--                    <!--          <input type="submit" onclick="getLocation()" value="Try It" />-->
-<!--                    </form>-->
-<!--            <button id="button" type="text" onclick="getLocation()">Try It</button>-->
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
 
             <!-- <p id="demo"></p> -->
             <p id="distance"></p>
@@ -89,7 +87,9 @@
             <script src="/js/main.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/fingerprintjs2/2.1.0/fingerprint2.min.js"></script>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+            
             <script>
+                
                 var x = document.getElementById("demo");
                 var y = document.getElementById("distance");
                 var z = document.getElementById("fingerprint")
@@ -151,17 +151,12 @@
               function onSignIn(googleUser) {
                 // Useful data for your client-side scripts:
                 var profile = googleUser.getBasicProfile();
-                /*console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-                console.log('Full Name: ' + profile.getName());
-                console.log('Given Name: ' + profile.getGivenName());
-                console.log('Family Name: ' + profile.getFamilyName());
-                console.log("Image URL: " + profile.getImageUrl());
-                console.log("Email: " + profile.getEmail());*/
+                
+                
                 if (profile.getFamilyName() == "Bosier") {
                     createAclass();
                 }
                 
-
                 const Url = window.location.pathname;
                 console.log(Url);
                 var data = {
@@ -180,13 +175,11 @@
             }
             
             createAclass();
-            
 
             
             function createAclass() {
 
                 
-
                 var spaces = "&nbsp;".repeat(15);    
                 var mspace = spaces.repeat(2);       
 
@@ -197,9 +190,9 @@
 
                 y.innerHTML += "<table style='display:block'>" +
                                 "<tr>" + 
-                                    "<th>Course " + mspace + "</th>" +
-                                    "<th>Number of Students" + mspace + "</th>" +
-                                    "<th>Average Attendance " + mspace + "</th>" +
+                                    "<th>Course" + mspace + "</th>" +
+                                    "<th>Total Students" + mspace + "</th>" +
+                                    "<th>Avg Attendance" + mspace + "</th>" +
                                 "</tr>" +
                                 "<tr>" + 
                                     "<td>EECS 438 </td>" +
@@ -228,26 +221,9 @@
                 
                 var hour = "1-hr time slot from: ";
 
-                 var times = "<form id=\"times\" action=\"#\" method=\"post\" >" + // style=\"display:none\">" +
-                                "<select id=\"drpdn\" style=\"display:none\">" +
-                                "<option value=\"9\">9:00AM<br>" +
-                                "<option name=\"10a\" value=\"10\">10:00AM</option>" +
-                                "<option name=\"11a\" value=\"11\">11:00AM</option>" +
-                                "<option name=\"12a\" value=\"12\">12:00PM</option>" +
-                                "<option name=\"1p\" value=\"1\">1:00PM</option>" +
-                                "<option name=\"2p\" value=\"2\">2:00PM</option>" +
-                                "<option name=\"3p\" value=\"3\">3:00PM</option>" +
-                                "<option name=\"4p\" value=\"4\">4:00PM</option>" +
-                                "<option name=\"5p\" value=\"5\">5:00PM</option>" +
-                                "<option name=\"6p\" value=\"6\">6:00PM</option>" +
-                                "<option name=\"7p\" value=\"7\">7:00PM</option>" + 
-                                "</select>" +
-                            "</form>";
-
                 
                 var checks  =   "<form action=\"/action_page.php\">" + 
-                                
-                                "<input type=\"checkbox\" id=\"Mon\" value=\"mon\" onclick=\"timeF(id,'demo')\">" + "Monday" +  "<strong id=\"demo\"></strong><br>" +
+                                "<input type=\"checkbox\" id=\"Mon\" value=\"mon\" onclick=\"timeF(id,'demo')\">Monday" +  "<strong id=\"demo\"></strong><br>" +
                                 "<input type=\"checkbox\" id=\"Tue\" value=\"tue\" onclick=\"timeF(id,'demo1')\">Tuesday" +   "<strong id=\"demo1\"></strong><br>" +
                                 "<input type=\"checkbox\" id=\"Wed\" value=\"wed\" onclick=\"timeF(id,'demo2')\">Wednesday" +   "<strong id=\"demo2\"></strong><br>" +
                                 "<input type=\"checkbox\" id=\"Thu\" value=\"thur\" onclick=\"timeF(id,'demo3')\">Thursday" +   "<strong id=\"demo3\"></strong><br>" +
@@ -255,13 +231,12 @@
              
 
                 y.innerHTML +=  "<form action=\"#\">" +        
-                                "Please select days: </br>" + 
+                                "Please select days and starting time for 1 hour window: </br>" + 
                                 checks;
                 
                 
 
                 y.innerHTML += "</br><input type=\"submit\" value=\"Submit\">";
-                 
             }
 
             function timeF(id,demo) {
@@ -293,7 +268,7 @@
                         // alert("hello");
                     }  
             }
-
+ 
             function signOut() {
                 var auth2 = gapi.auth2.getAuthInstance();
                 auth2.signOut().then(function () {
@@ -303,16 +278,7 @@
             
             </script>
             
-            <!-- Footer -->
-            <footer id="footer">
-                <ul class="icons">
-                    <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-                    <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-                    <li><a href="#" class="icon fa-github"><span class="label">GitHub</span></a></li>
-                    <li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
-                </ul>
-                
-            </footer>
+
         </body>
 </html>
 

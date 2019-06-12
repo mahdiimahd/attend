@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_file
 import os
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from pytz import timezone
+import csv
 
 
 template_dir = os.path.abspath('./templates')
@@ -260,7 +261,7 @@ def index(className):
         )
     else:
         print("Get request received")
-        return render_template('location.html', value=className )
+        return render_template('signin.html', value=className )
 
 @app.route("/attendance/<classname>", methods = ["GET"])
 def getAttendance(classname):
@@ -268,9 +269,14 @@ def getAttendance(classname):
         print()
         list_students = Singleclass.query.filter_by(className=classname).with_entities(Singleclass.uniqname).distinct().all()
         #num_students = Singleclass.query.with_entities(Singleclass.uniqname).distinct().all()
-        print(list_students)
+        classroom_name = Classes.query.filter_by(className=classname).first()
+        professorName = classroom_name.teacherName
+        classroomName = classroom_name.classroomName
+        print(list_students,classroomName)
         return jsonify(
             count=len(list_students),
+            classroom=classroomName,
+            teacherName=professorName
         )
 
 @app.route("/classroom", methods=["GET","POST"])
@@ -295,11 +301,25 @@ def addClassroom():
 @app.route("/toCSV/<className>", methods=["GET"])
 def toCSV(className):
     if request.method == 'GET':
-        dates = Singleclass.query.filter_by(className=className).query.with_entities(Singleclass.date).order_by(Singleclass.date.asc()).distinct().all()
-        print(dates)
-        return jsonify(
-            message="File sent"
-        )
+        dates = Singleclass.query.filter_by(className=className).with_entities(Singleclass.date).order_by(Singleclass.date.asc()).distinct().all()
+        students = Singleclass.query.filter_by(className=className).all()
+        # print(dates[0].strftime("%m/%d/%Y, %H:%M:%S"))
+        # dateObjects = [str(d) for d in dates]
+        print(students)
+
+        
+        # students = Singleclass.query.filter_by(date=dates[0]).all()
+        #csvData = [['Person', 'Age'], ['Peter', '22'], ['Jasmine', '21'], ['Sam', '24']]
+        csvData = [ [student.uniqname,'1'] for student in students]
+        with open('person.csv', 'w') as csvFile:
+            writer = csv.writer(csvFile)
+            writer.writerow(['Name','06/12/2019'])
+            writer.writerows(csvData)
+        return send_file('person.csv', attachment_filename='person.csv')
+
+        # return jsonify(
+        #     message="File sent"
+        # )
 # def testing():
 #     if request.method == "POST":
 #         print("post request worked")

@@ -15,24 +15,17 @@
                  a:hover {
                 background-color: lightgreen;
                  }
-                 img {
-                position: absolute;
-                left: 38%;
-                top: 2%;
-                /* width: 100%; */
-                text-align: center;
-                /* font-size: 18px; */
-            }
+                 
                  h1 {
                 position: absolute;
-                left: 0%;
+                left: 50%;
                 top: 2%;
                 /* width: 100%; */
                 text-align: center;
                 /* font-size: 18px; */
             }
                 #drpdn {   
-                    width: 40%;
+                    width: 50%;
                 }
 
                 #plc {
@@ -41,23 +34,26 @@
 
                 input[type="checkbox"] {
                     -webkit-appearance:checkbox;
+                    /* Double-sized Checkboxes */
+                    -ms-transform: scale(1.5); /* IE */
+                    -moz-transform: scale(1.5); /* FF */
+                    -webkit-transform: scale(1.5); /* Safari and Chrome */
+                    -o-transform: scale(1.5); /* Opera */
+                    transform: scale(1.5);
+                    padding: 10px;
                 }
 
                 #el1 {display:inline-block; width:30%;} 
                 #el2 {display:inline-block; width:30%;} 
 
-                div#semester {order: 1;}
-                div#select1 {order: 2;}
 
             </style>
 
-        <img src="images/attLogoNB.png" height="75" width="75">
         <h1> Attend </h1>
 
         <title>attend</title>
         
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes" />
-
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
         <!--        [if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script> <![endif]-->
         <link rel="stylesheet" href="/css/main.css" />
         <!--        [if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
@@ -66,29 +62,20 @@
     
     
     <link rel="shortcut icon" href="/images/fav.ico">
-    <body>
-        <div class="g-signin2" data-onsuccess="onSignIn"></div>
-        
-        
-        <script src="/js/main.js">
-            </script>
+    <body class="is-preload">
+        <script src="/js/main.js"></script>
         <script src="picker.time.js"></script>
         <title> attend </title>
-        <body>
-<!--            <p>Click the "Try It" button to get your coordinates.</p>-->
-<!--            Uniqname:-->
-<!--            <form id="signup-form" method="post">-->
-<!--                <input type="text" name="uniqname">-->
-<!--                    <!--          <input type="submit" onclick="getLocation()" value="Try It" />-->
-<!--                    </form>-->
-           <!-- <button id="button" type="text" onclick="getLocation()">Try It</button> -->
+        <!-- <body> -->
+            <div class="g-signin2" style="position: absolute;top: 22.5%; right: 12.5%;padding-left:10%" data-onsuccess="onSignIn"></div> <!-- g-signin2 -->
 
-            <!-- <p id="demo"></p> -->
             <p id="distance"></p>
             <p id="fingerprint"></p>
             <script src="/js/main.js"></script>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
             <script>
+                
                 var x = document.getElementById("demo");
                 var y = document.getElementById("distance");
                 //var z = document.getElementById("fingerprint")
@@ -198,17 +185,12 @@
               function onSignIn(googleUser) {
                 // Useful data for your client-side scripts:
                 var profile = googleUser.getBasicProfile();
-                /*console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-                console.log('Full Name: ' + profile.getName());
-                console.log('Given Name: ' + profile.getGivenName());
-                console.log('Family Name: ' + profile.getFamilyName());
-                console.log("Image URL: " + profile.getImageUrl());
-                console.log("Email: " + profile.getEmail());*/
+                
+                
                 if (profile.getFamilyName() == "Bosier") {
                     createAclass();
                 }
                 
-
                 const Url = window.location.pathname;
                 console.log(Url);
                 var data = {
@@ -227,36 +209,39 @@
             }
             
             createAclass();
-            
 
             
             function createAclass() {
 
                 
-
-                var spaces = "&nbsp;".repeat(15);    
+                var spaces = "&nbsp;".repeat(15);
+                var space2 = "&nbsp;".repeat(3);    
                 var mspace = spaces.repeat(2);       
+                
+                y.innerHTML = "<h3>Welcome, Professor []</h3>";
 
-                y.innerHTML = "<h2>Welcome Professor [],";
 
+                y.innerHTML += "<h3>Course attendance:</h3>";
 
-                y.innerHTML += "<h3>Added courses:</h3>";
-
-                y.innerHTML += "<table style='display:block'>" +
+                y.innerHTML += mspace + "(# students)" + spaces +  "(# students)" +
+                                "<table style='display:block; font-size: 0.85em;'>" +
                                 "<tr>" + 
-                                    "<th>Course " + mspace + "</th>" +
-                                    "<th>Number of Students" + mspace + "</th>" +
-                                    "<th>Average Attendance " + mspace + "</th>" +
+                                    "<th>Course" + mspace + "</th>" +
+                                    "<th>Total" + mspace + "</th>" +
+                                    "<th>Avg" + mspace + "</th>" +
+                                    "<th>Bldg" + mspace + "</th>" +
                                 "</tr>" +
                                 "<tr>" + 
                                     "<td>EECS 438 </td>" +
                                     "<td>45 </td>" + 
                                     "<td>40</td>" + 
+                                    "<td>EECS</td>" +
                                 "</tr>" +
                                 "<tr>" + 
                                     "<td>EECS 485 </td>" +
                                     "<td>35</td>" + 
-                                    "<td>30</td>" + 
+                                    "<td>30</td>" +
+                                    "<td>DOW</td>" +  
                                 "</tr>" + 
                                 "</table><br>";
 
@@ -265,50 +250,33 @@
     
                 y.innerHTML +=  "<h4>Course:</h4>" + 
                                 "<form id=\"signup-form\" action=\"#\" method=\"post\">" +
-                                "<select id=\"drpdn\">" + 
+                                "<select>" + 
                                 "<option value=\"eecs441\">eecs441</option>" + 
                                 "<option value=\"eecs489\">eecs489</option>" +
                                 "<option value=\"eecs482\">eecs482</option>" + 
                                 "<option value=\"eecs470\">eecs470</option>" +
                                 "</select>" +  //"<input id=\"plc\" type=\"submit\" name=\"submit\" value=\"submit\" />" +
-                                "</form>";
+                                "</form><br><br><br>";
                 
                 var hour = "1-hr time slot from: ";
 
-                 var times = "<form id=\"times\" action=\"#\" method=\"post\" >" + // style=\"display:none\">" +
-                                "<select id=\"drpdn\" style=\"display:none\">" +
-                                "<option value=\"9\">9:00AM<br>" +
-                                "<option name=\"10a\" value=\"10\">10:00AM</option>" +
-                                "<option name=\"11a\" value=\"11\">11:00AM</option>" +
-                                "<option name=\"12a\" value=\"12\">12:00PM</option>" +
-                                "<option name=\"1p\" value=\"1\">1:00PM</option>" +
-                                "<option name=\"2p\" value=\"2\">2:00PM</option>" +
-                                "<option name=\"3p\" value=\"3\">3:00PM</option>" +
-                                "<option name=\"4p\" value=\"4\">4:00PM</option>" +
-                                "<option name=\"5p\" value=\"5\">5:00PM</option>" +
-                                "<option name=\"6p\" value=\"6\">6:00PM</option>" +
-                                "<option name=\"7p\" value=\"7\">7:00PM</option>" + 
-                                "</select>" +
-                            "</form>";
-
                 
-                var checks  =   "<form action=\"/action_page.php\">" + 
-                                
-                                "<input type=\"checkbox\" id=\"Mon\" value=\"mon\" onclick=\"timeF(id,'demo')\">" + "Monday" +  "<strong id=\"demo\"></strong><br>" +
-                                "<input type=\"checkbox\" id=\"Tue\" value=\"tue\" onclick=\"timeF(id,'demo1')\">Tuesday" +   "<strong id=\"demo1\"></strong><br>" +
-                                "<input type=\"checkbox\" id=\"Wed\" value=\"wed\" onclick=\"timeF(id,'demo2')\">Wednesday" +   "<strong id=\"demo2\"></strong><br>" +
-                                "<input type=\"checkbox\" id=\"Thu\" value=\"thur\" onclick=\"timeF(id,'demo3')\">Thursday" +   "<strong id=\"demo3\"></strong><br>" +
-                                "<input type=\"checkbox\" id=\"Fri\" value=\"fri\" onclick=\"timeF(id,'demo4')\">Friday" +  "<strong id=\"demo4\"></strong><br>";
+                var checks  =   "<form action='/action_page.php'>" + 
+                                "<input type=\"checkbox\" id=\"Mon\" value=\"mon\" onclick=\"timeF(id,'demo')\">" + space2 + "Monday<strong id=\"demo\"></strong><br>" +
+                                "<input type=\"checkbox\" id=\"Tue\" value=\"tue\" onclick=\"timeF(id,'demo1')\">" + space2 + "Tuesday<strong id=\"demo1\"></strong><br>" +
+                                "<input type=\"checkbox\" id=\"Wed\" value=\"wed\" onclick=\"timeF(id,'demo2')\">" + space2 + "Wednesday<strong id=\"demo2\"></strong><br>" +
+                                "<input type=\"checkbox\" id=\"Thu\" value=\"thur\" onclick=\"timeF(id,'demo3')\">" + space2 + "Thursday<strong id=\"demo3\"></strong><br>" +
+                                "<input type=\"checkbox\" id=\"Fri\" value=\"fri\" onclick=\"timeF(id,'demo4')\">" + space2 +  "Friday<strong id=\"demo4\"></strong><br>"+
+                                "</form>"
              
 
-                y.innerHTML +=  "<form action=\"#\">" +        
-                                "Please select days: </br>" + 
+                y.innerHTML +=  "<strong>Please select days and starting time for 1 hour window:</strong></br>" + 
                                 checks;
                 
                 
 
-                y.innerHTML += "</br><input type=\"submit\" value=\"Submit\">";
-                 
+                y.innerHTML += "</br><input type=\"submit\" style='position:absolute;left:35%;width:30%;' value=\"Submit\">";
+                y.innerHTML += "</p></header>"
             }
 
             function timeF(id,demo) {
@@ -340,7 +308,7 @@
                         // alert("hello");
                     }  
             }
-
+ 
             function signOut() {
                 var auth2 = gapi.auth2.getAuthInstance();
                 auth2.signOut().then(function () {
@@ -349,17 +317,7 @@
             }
             
             </script>
-            
-            <!-- Footer -->
-            <footer id="footer">
-                <ul class="icons">
-                    <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-                    <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-                    <li><a href="#" class="icon fa-github"><span class="label">GitHub</span></a></li>
-                    <li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
-                </ul>
-                
-            </footer>
+
         </body>
 </html>
 

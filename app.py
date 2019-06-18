@@ -245,7 +245,7 @@ def index(className):
                 message="Class is not in session right now"
             )
 
-        last_record = Singleclass.query.filter_by(uniqname=request.form['uniqname']).order_by(Singleclass.date.asc()).all()
+        last_record = Singleclass.query.filter_by(className=className).filter_by(uniqname=request.form['uniqname']).order_by(Singleclass.date.asc()).all()
         if len(last_record) > 0:
             last_record = last_record[-1]
             if last_record.date.date() == date.date():
